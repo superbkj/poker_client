@@ -1,4 +1,4 @@
-const numStregthMap: Record<number, number> = {
+const numRankMap: Record<number, number> = {
   1: 13,
   13: 12,
   12: 11,
@@ -15,16 +15,16 @@ const numStregthMap: Record<number, number> = {
 }
 
 export default class Card {
-  static suits: string[] = ['club', 'diamond', 'heart', 'spade']
+  static suits: string[] = ['club♣', 'diamond♦', 'heart♥', 'spade♠']
   suit: string
   num: number
-  strength: number
+  rank: number
   id: number
 
   constructor (suit: string, num: number) {
     this.suit = suit
     this.num = num
-    this.strength = numStregthMap[num]
-    this.id = Card.suits.indexOf(suit) * num
+    this.rank = numRankMap[num]
+    this.id = Card.suits.length * num + Card.suits.indexOf(suit)
   }
 }
