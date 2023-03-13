@@ -8,7 +8,8 @@ const deck: Card[] = []
 function App (): JSX.Element {
   const [communityCards, setCommunityCards] = useState<Card[]>([])
   const [startingHand, setStartingHand] = useState<Card[]>([])
-  const [hand, setHand] = useState<Card[]>([])
+  // const [hand, setHand] = useState<Card[]>([])
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     if (startingHand.length > 0) {
@@ -67,12 +68,32 @@ function App (): JSX.Element {
     setCommunityCards(newCommunityCards)
   }
 
+  const handleHelloClick = async (): Promise<void> => {
+    const res = await fetch('/api/hello')
+    const data = await res.json()
+    setMessage(data.message)
+    /*
+    fetch('/api/hello')
+      .then(async res => res.json())
+      .then(data => {
+        setMessage(data)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+    */
+  }
+
   return (
     <div className="App">
+      <button onClick={handleHelloClick}>Hello</button>
       <button onClick={handlePreFlopClick}>1. プリフロップ</button>
       <button onClick={handleFlopClick}>2. フロップ</button>
       <button onClick={handleTurnClick}>3. ターン</button>
       <button onClick={handleRiverClick}>4. リバー</button>
+
+      <h3>Community</h3>
+      <p>{message}</p>
 
       <h3>Community</h3>
       {communityCards.map((card: Card) => {

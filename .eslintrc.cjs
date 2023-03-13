@@ -11,14 +11,23 @@ module.exports = {
   overrides: [
   ],
   parserOptions: {
-    tsconfigRootDir: __dirname,
+    tsconfigRootDir: __dirname, // root directory for relative TSConfig paths specified in the project option
+    project: './tsconfig.json', // path to your project's tsconfig.json
     ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: './tsconfig.json'
+    sourceType: 'module'
   },
   plugins: [
     'react'
   ],
   rules: {
-  }
+    '@typescript-eslint/no-misused-promises': [
+      "error",
+      {
+        checksVoidReturn: false
+      }
+    ]
+  },
+  ignorePatterns: [
+    'vite.config.ts'
+  ]
 }
